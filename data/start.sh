@@ -5,7 +5,7 @@ timestamp() {
 }
 
 getpublicip() {
-    natpmpc -g ${VPN_GATEWAY} | grep -oP '(?<=Public.IP.address.:.).*'
+    natpmpc | grep -oP '(?<=Public.IP.address.:.).*'
 }
 
 findconfiguredport() {
@@ -13,8 +13,8 @@ findconfiguredport() {
 }
 
 findactiveport() {
-    natpmpc -g ${VPN_GATEWAY} -a 0 0 udp ${NAT_LEASE_LIFETIME} >/dev/null 2>&1
-    natpmpc -g ${VPN_GATEWAY} -a 0 0 tcp ${NAT_LEASE_LIFETIME} | grep -oP '(?<=Mapped public port.).*(?=.protocol.*)'
+    natpmpc -a 0 0 udp ${NAT_LEASE_LIFETIME} >/dev/null 2>&1
+    natpmpc -a 0 0 tcp ${NAT_LEASE_LIFETIME} | grep -oP '(?<=Mapped public port.).*(?=.protocol.*)'
 }
 
 qbt_login() {
@@ -102,7 +102,6 @@ QBITTORRENT_SERVER
 QBITTORRENT_PORT
 QBITTORRENT_USER
 QBITTORRENT_PASS
-VPN_GATEWAY
 VPN_CT_NAME
 VPN_IF_NAME
 CHECK_INTERVAL
